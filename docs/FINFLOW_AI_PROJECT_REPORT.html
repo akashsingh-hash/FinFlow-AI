@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinFlow AI - Technical Project Report & Interview Guide</title>
+  <!-- Load Premium Web Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    /* CSS CUSTOM PROPERTIES (Modern Dark Theme) */
+    :root {
+      --bg-color: #0b0f19;
+      --text-color: #e2e8f0;
+      --text-muted: #94a3b8;
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
+      --accent: #10b981;
+      --accent-bg: rgba(16, 185, 129, 0.1);
+      --danger: #f43f5e;
+      --warning: #eab308;
+      --card-bg: rgba(17, 24, 39, 0.7);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --code-bg: #1e293b;
+      --table-header: #1e293b;
+      --table-row-alt: rgba(30, 41, 59, 0.4);
+    }
+
+    /* GLOBAL RESET & BASE STYLES */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* TYPOGRAPHY */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 15px;
+      margin-top: 30px;
+    }
+    h1 {
+      font-size: 3rem;
+      background: linear-gradient(135deg, #a78bfa, #6366f1, #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .subtitle {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.5rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 50px;
+      font-weight: 400;
+    }
+    h2 {
+      font-size: 2rem;
+      border-bottom: 2px solid var(--card-border);
+      padding-bottom: 10px;
+      margin-top: 50px;
+      display: flex;
+      align-items: center;
+    }
+    h3 {
+      font-size: 1.4rem;
+      color: #f1f5f9;
+      margin-top: 25px;
+    }
+    p {
+      margin-bottom: 15px;
+      color: #cbd5e1;
+    }
+    strong {
+      color: #ffffff;
+    }
+
+    /* CONTAINER CARD & GRID LAYOUTS */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 30px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    @media (min-width: 768px) {
+      .grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* BADGES */
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-right: 5px;
+    }
+    .badge-get { background-color: rgba(56, 189, 248, 0.15); color: #38bdf8; }
+    .badge-post { background-color: rgba(16, 185, 129, 0.15); color: #10b981; }
+    .badge-put { background-color: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+    .badge-delete { background-color: rgba(244, 63, 94, 0.15); color: #f43f5e; }
+    .badge-patch { background-color: rgba(167, 139, 250, 0.15); color: #a78bfa; }
+    .badge-role { background-color: rgba(99, 102, 241, 0.15); color: #818cf8; }
+
+    /* TABLES */
+    .table-container {
+      overflow-x: auto;
+      margin-bottom: 25px;
+      border-radius: 8px;
+      border: 1px solid var(--card-border);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+    th, td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--card-border);
+    }
+    th {
+      background-color: var(--table-header);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      color: #ffffff;
+    }
+    tr:nth-child(even) {
+      background-color: var(--table-row-alt);
+    }
+    tr:hover {
+      background-color: rgba(99, 102, 241, 0.05);
+    }
+
+    /* CODE BLOCKS */
+    pre {
+      background-color: var(--code-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 15px;
+      overflow-x: auto;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+    }
+    code {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9em;
+      color: #f472b6;
+      background-color: rgba(244, 114, 182, 0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    pre code {
+      color: #e2e8f0;
+      background-color: transparent;
+      padding: 0;
+      border-radius: 0;
+    }
+
+    /* DIAGRAMS */
+    .diagram-wrapper {
+      background-color: #0f172a;
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .diagram-wrapper svg {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* ACTIONS BUTTON FOR WINDOWS USERS */
+    .print-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: var(--primary);
+      color: #ffffff;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background-color 0.2s, transform 0.2s;
+    }
+    .print-btn:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+    .print-btn:active {
+      transform: translateY(0);
+    }
+
+    /* PRINT AND PAGE BREAK OPTIMIZATIONS */
+    .page-break {
+      page-break-before: always;
+    }
+    
+    @media print {
+      body {
+        background-color: #ffffff !important;
+        color: #0f172a !important;
+        padding: 0 !important;
+      }
+      .container {
+        max-width: 100%;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        color: #000000 !important;
+        page-break-inside: avoid;
+      }
+      h1 {
+        background: none !important;
+        -webkit-background-clip: initial !important;
+        -webkit-text-fill-color: initial !important;
+        color: #000000 !important;
+      }
+      .card {
+        background: #ffffff !important;
+        border: 1px solid #cbd5e1 !important;
+        box-shadow: none !important;
+        page-break-inside: avoid;
+        margin-bottom: 20px;
+      }
+      p, td, th, li {
+        color: #1e293b !important;
+      }
+      th {
+        background-color: #f1f5f9 !important;
+        color: #0f172a !important;
+        border-bottom: 2px solid #cbd5e1 !important;
+      }
+      tr {
+        background-color: #ffffff !important;
+      }
+      tr:nth-child(even) {
+        background-color: #f8fafc !important;
+      }
+      pre {
+        background-color: #f8fafc !important;
+        border: 1px solid #cbd5e1 !important;
+        color: #0f172a !important;
+        page-break-inside: avoid;
+      }
+      pre code {
+        color: #0f172a !important;
+      }
+      code {
+        color: #0f172a !important;
+        background-color: #f1f5f9 !important;
+      }
+      .diagram-wrapper {
+        background-color: #ffffff !important;
+        border: 1px solid #cbd5e1 !important;
+        page-break-inside: avoid;
+      }
+      .print-btn {
+        display: none !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="print-btn" onclick="window.print()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+    Print to PDF
+  </button>
+
+  <div class="container">
+    
+    <!-- TITLE BLOCK -->
+    <header style="text-align: center; margin-bottom: 60px; padding-top: 40px;">
+      <h1>FINFLOW AI</h1>
+      <div class="subtitle">Financial Operating System for SMBs & Enterprises</div>
+      <p style="font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin: 0 auto;">
+        A modular monolithic core built with Java 21, Spring Boot 3.4, Spring Security, PostgreSQL, and React. 
+        Designed with ACID properties, pessimistic locking, hierarchical approval trees, and granular audit log serialization.
+      </p>
+    </header>
+
+    <!-- SECTION 1 -->
+    <section class="card">
+      <h2>1. Executive Summary & Project Vision</h2>
+      <p>
+        <strong>FinFlow AI</strong> is a production-grade Financial Operating System engineered to address operational capital leakage in Small and Medium Businesses (SMBs). Unlike typical basic CRUD expense trackers, FinFlow AI serves as an ERP-lite platform that manages the entire lifecycle of corporate spend: from organization bootstrap and role-based directory management to departmental budget allocations, vendor invoice tracking, multi-tier expense approval trees, and reimbursement payout disbursements.
+      </p>
+      <p>
+        The platform enforces corporate compliance by automating control checks at every stage. Budgets cannot be overrun, and approval routing dynamically shifts depending on risk thresholds. Every action that modifies the system's financial state is permanently logged to an immutable audit ledger, complete with before-and-after JSON diff tracking.
+      </p>
+      <h3>Core Business Value Propositions</h3>
+      <ul>
+        <li><strong>Preventative Budgeting:</strong> Eliminates end-of-month surprises by running real-time, transaction-locked check validation on departmental budgets before expenses can enter the approval stream.</li>
+        <li><strong>Role Segregation & Compliance:</strong> Ensures division of duties by mapping strict role permissions across Employees, Managers, Finance Managers, Auditors, and Admins.</li>
+        <li><strong>Automated Risk Routing:</strong> Streamlines simple workflows (claims under $5,000 auto-approve) while guaranteeing multi-tier manual evaluation for medium to high-value capital outflows.</li>
+        <li><strong>Audit Readiness:</strong> Creates a continuous, tamper-proof record of organizational actions for compliance review.</li>
+      </ul>
+    </section>
+
+    <!-- SECTION 2 -->
+    <section class="card page-break">
+      <h2>2. System Architecture & Request Flows</h2>
+      <p>
+        FinFlow AI is architected as a <strong>Modular Monolith</strong>. By structuring the codebase along feature-based domain boundaries (modules), the system maintains compile-time isolation between contexts while avoiding the network complexity, latency, and distributed transaction challenges of microservices in its early phases.
+      </p>
+      <div class="diagram-wrapper">
+        <h3 style="margin-top: 0; margin-bottom: 20px;">System Request & Filter Pipeline Diagram</h3>
+        <!-- SVG Architecture Diagram -->
+        <svg viewBox="0 0 900 400" xmlns="http://www.w3.org/2000/svg">
+          <!-- Background -->
+          <rect width="900" height="400" rx="10" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+          
+          <!-- Client Layer -->
+          <rect x="30" y="150" width="160" height="80" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+          <text x="110" y="185" fill="#ffffff" font-family="'Outfit', sans-serif" font-size="14" font-weight="bold" text-anchor="middle">React JS Client</text>
+          <text x="110" y="205" fill="#94a3b8" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">Vite / Tailwind v4</text>
+          
+          <!-- HTTP Arrow -->
+          <path d="M 190 190 L 250 190" stroke="#38bdf8" stroke-width="2" fill="none"/>
+          <polygon points="250,190 242,185 242,195" fill="#38bdf8"/>
+          <text x="220" y="178" fill="#38bdf8" font-family="'Inter', sans-serif" font-size="10" text-anchor="middle">REST Call</text>
+          
+          <!-- Spring Security Filters -->
+          <rect x="260" y="80" width="160" height="220" rx="8" fill="#1e293b" stroke="#6366f1" stroke-width="2"/>
+          <text x="340" y="110" fill="#ffffff" font-family="'Outfit', sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Spring Security</text>
+          
+          <rect x="275" y="140" width="130" height="40" rx="4" fill="#312e81" stroke="#4f46e5" stroke-width="1"/>
+          <text x="340" y="165" fill="#e2e8f0" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">CORS / CSRF Filter</text>
+          
+          <rect x="275" y="200" width="130" height="40" rx="4" fill="#312e81" stroke="#4f46e5" stroke-width="1"/>
+          <text x="340" y="225" fill="#e2e8f0" font-family="'Inter', sans-serif" font-size="10" text-anchor="middle">JwtAuthFilter</text>
+          
+          <!-- Pass/Fail Arrows -->
+          <path d="M 420 190 L 470 190" stroke="#10b981" stroke-width="2" fill="none"/>
+          <polygon points="470,190 462,185 462,195" fill="#10b981"/>
+          <text x="445" y="178" fill="#10b981" font-family="'Inter', sans-serif" font-size="10" text-anchor="middle">Authorized</text>
+          
+          <!-- MVC Containers -->
+          <rect x="480" y="40" width="230" height="300" rx="8" fill="#1e293b" stroke="#818cf8" stroke-width="2"/>
+          <text x="595" y="70" fill="#ffffff" font-family="'Outfit', sans-serif" font-size="15" font-weight="bold" text-anchor="middle">Tomcat Application Context</text>
+          
+          <!-- Controllers -->
+          <rect x="500" y="95" width="190" height="60" rx="6" fill="#312e81" stroke="#6366f1" stroke-width="1"/>
+          <text x="595" y="120" fill="#ffffff" font-family="'Outfit', sans-serif" font-size="12" font-weight="bold" text-anchor="middle">REST Controllers</text>
+          <text x="595" y="140" fill="#94a3b8" font-family="'Inter', sans-serif" font-size="10" text-anchor="middle">Input Validation & DTO Maps</text>
+          
+          <!-- Services -->
+          <rect x="500" y="175" width="190" height="60" rx="6" fill="#111827" stroke="#6366f1" stroke-width="1"/>
+          <text x="595" y="200" fill="#ffffff" font-family="'Outfit', sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Service Layer</text>
+          <text x="595" y="220" fill="#94a3b8" font-family="'Inter', sans-serif" font-size="10" text-anchor="middle">Transactional @Service Facades</text>
+          
+          <!-- Repositories -->
+          <rect x="500" y="255" width="190" height="60" rx="6" fill="#111827" stroke="#6366f1" stroke-width="1"/>
+          <text x="595" y="280" fill="#ffffff" font-family="'Outfit', sans-serif" font-size="12" font-weight="bold" text-anchor="middle">JPA Repositories</text>
+          <text x="595" y="300" fill="#94a3b8" font-family="'Inter', sans-serif" font-size="10" text-anchor="middle">Hibernate ORM / JPQL Locks</text>
+          
+          <!-- Connecting internal lines -->
+          <path d="M 595 155 L 595 175" stroke="#818cf8" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <path d="M 595 235 L 595 255" stroke="#818cf8" stroke-width="1.5" stroke-dasharray="3,3"/>
+          
+          <!-- JDBC SQL Connection -->
+          <path d="M 710 190 L 760 190" stroke="#10b981" stroke-width="2" fill="none"/>
+          <polygon points="760,190 752,185 752,195" fill="#10b981"/>
+          <text x="735" y="178" fill="#10b981" font-family="'Inter', sans-serif" font-size="10" text-anchor="middle">JDBC</text>
+          
+          <!-- Database -->
+          <rect x="770" y="130" width="100" height="120" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+          <text x="820" y="175" fill="#ffffff" font-family="'Outfit', sans-serif" font-size="14" font-weight="bold" text-anchor="middle">PostgreSQL</text>
+          <text x="820" y="195" fill="#94a3b8" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">Neon Cloud</text>
+          <text x="820" y="215" fill="#10b981" font-family="'Inter', sans-serif" font-size="10" text-anchor="middle">ACID DB</text>
+        </svg>
+      </div>
+      <p>
+        The request lifecycle operates as follows:
+      </p>
+      <ol>
+        <li>The client issues a REST query to port 8080 under the <code>/api</code> prefix (which maps to the Tomcat context path).</li>
+        <li>The request hits the Spring Security Filter Chain. <code>CORS</code> policies are evaluated, and CSRF settings are checked.</li>
+        <li>The <code>JwtAuthenticationFilter</code> extracts the Bearer token from the <code>Authorization</code> header, verifies the cryptographic signature using the HS512 JWT token provider, deserializes the user credentials/authorities, and binds them to the thread-local <code>SecurityContextHolder</code>.</li>
+        <li>Once passed, Spring MVC inspects request maps and passes control to the correct <code>@RestController</code>. Parameter validators (Jakarta bean validation annotations like <code>@NotNull</code> and <code>@Size</code>) execute.</li>
+        <li>The controller calls the domain service inside a transactional context (managed via <code>@Transactional</code> proxy boundaries). In this layer, business rules are evaluated.</li>
+        <li>Services retrieve/update data via <code>JpaRepository</code> interfaces. Queries execute on the PostgreSQL database instance hosted in Neon, maintaining ACID guarantees.</li>
+      </ol>
+    </section>
+
+    <!-- SECTION 3 -->
+    <section class="card page-break">
+      <h2>3. Relational Schema & Entity Relationships</h2>
+      <p>
+        The relational database design utilizes clean normalization strategies to preserve data integrity while mapping real-world business hierarchies.
+      </p>
+      <div class="diagram-wrapper">
+        <h3 style="margin-top: 0; margin-bottom: 20px;">Database Entity Relationship Diagram (ERD)</h3>
+        <!-- SVG ERD Diagram -->
+        <svg viewBox="0 0 950 480" xmlns="http://www.w3.org/2000/svg">
+          <!-- Background -->
+          <rect width="950" height="480" rx="10" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+          
+          <!-- Table: Companies -->
+          <g transform="translate(30, 40)">
+            <rect width="180" height="110" rx="6" fill="#1e293b" stroke="#4f46e5" stroke-width="2"/>
+            <rect width="180" height="30" rx="6" fill="#4f46e5"/>
+            <text x="90" y="20" fill="#ffffff" font-family="'Outfit', sans-serif" font-size="12" font-weight="bold" text-anchor="middle">companies</text>
+            <text x="10" y="50" fill="#a78bfa" font-family="'Fira Code', monospace" font-size="11">PK | id (BIGINT)</text>
+            <text x="10" y="70" fill="#e2e8f0" font-family="'Inter', sans-serif" font-size="11">name (VARCHAR)</text>
+            <text x="10" y="90" fill="#e2e8f0" font-family="'Inter', sans-serif" font-size="11">tax_id (VARCHAR)</text>
+          </g>
+          
+          <!-- Table: Users -->
+          <g transform="translate(280, 40)">
+            <rect width="180" height="170" rx="6" fill="#1e293b" stroke="#6366f1" stroke-width="2"/>
+            <rect width="180" height="30" rx="6" fill="#6366f1"/>
+            <text x="90" y="20" fill="#ffffff" font-family="'Outfit', sans-serif" font-size="12" font-weight="bold" text-anchor="middle">users</text>
+            <text x="10" y="50" fill="#a78bfa" font-family="'Fira Code', monospace" font-size="11">PK | id (BIGINT)</text>
+            <text x="10" y="70" fill="#e2e8f0" font-family="'Inter', sans-serif" font-size="11">email (VARCHAR)</text>
+            <text x="10" y="90" fill="#e2e8f0" font-family="'Inter', sans-serif" font-size="11">role (VARCHAR)</text>
+            <text x="10" y="110" fill="#e2e8f0" font-family="'Inter', sans-serif" font-size="11">status (VARCHAR)</text>
+            <text x="10" y="130" fill="#cbd5e1" font-family="'Fira Code', monospace" font-size="10">FK | company_id</text>
+            <text x="10" y="150" fill="#cbd5e1" font-family="'Fira Code', monospace" font-size="10">FK | manager_id</text>
+          </g>
+          
+          <!-- Table: Budgets -->
+          <g transform="translate(530, 40)">
+            <rect width="180" height="130" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+            <rect width="180" height="30" rx="6" fill="#10b981"/>
+            <text x="90" y="20" fill="#ffffff" font-family="'Outfit', sans-serif" font-size="12" font-weight="bold" text-anchor="middle">budgets</text>
+            <text x="10" y="50" fill="#a78bfa" font-family="'Fira Code', monospace" font-size="11">PK | id (BIGINT)</text>
+            <text x="10" y="70" fill="#e2e8f0" font-family="'Inter', sans-serif" font-size="11">allocated_amt (DEC)</text>
+            <text x="10" y="90" fill="#e2e8f0" font-family="'Inter', sans-serif" font-size="11">utilized_amt (DEC)</text>
+            <text x="10" y="110" fill="#cbd5e1" font-family="'Fira Code', monospace" font-size="10">FK | company_id</text>
+          </g>
+          
+          <!-- Table: Expenses -->
+          <g transform="translate(280, 270)">
+            <rect width="180" height="150" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+            <rect width="180" height="30" rx="6" fill="#38bdf8"/>
+            <text x="90" y="20" fill="#ffffff" font-family="'Outfit', sans-serif" font-size="12" font-weight="bold" text-anchor="middle">expenses</text>
+            <text x="10" y="50" fill="#a78bfa" font-family="'Fira Code', monospace" font-size="11">PK | id (BIGINT)</text>
+            <text x="10" y="70" fill="#e2e8f0" font-family="'Inter', sans-serif" font-size="11">amount (DECIMAL)</text>
+            <text x="10" y="90" fill="#e2e8f0" font-family="'Inter', sans-serif" font-size="11">status (VARCHAR)</text>
+            <text x="10" y="110" fill="#cbd5e1" font-family="'Fira Code', monospace" font-size="10">FK | user_id</text>
+            <text x="10" y="130" fill="#cbd5e1" font-family="'Fira Code', monospace" font-size="10">FK | budget_id</text>
+          </g>
+          
+          <!-- Table: Approval Workflows -->
+          <g transform="translate(30, 270)">
+            <rect width="180" height="130" rx="6" fill="#1e293b" stroke="#a78bfa" stroke-width="2"/>
+            <rect width="180" height="30" rx="6" fill="#a78bfa"/>
+            <text x="90" y="20" fill="#ffffff" font-family="'Outfit', sans-serif" font-size="12" font-weight="bold" text-anchor="middle">approval_workflows</text>
+            <text x="10" y="50" fill="#a78bfa" font-family="'Fira Code', monospace" font-size="11">PK | id (BIGINT)</text>
+            <text x="10" y="70" fill="#cbd5e1" font-family="'Fira Code', monospace" font-size="10">FK | expense_id</text>
+            <text x="10" y="90" fill="#cbd5e1" font-family="'Fira Code', monospace" font-size="10">FK | approver_id</text>
+            <text x="10" y="110" fill="#e2e8f0" font-family="'Inter', sans-serif" font-size="11">status (VARCHAR)</text>
+          </g>
+          
+          <!-- Table: Reimbursements -->
+          <g transform="translate(530, 270)">
+            <rect width="180" height="130" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+            <rect width="180" height="30" rx="6" fill="#10b981"/>
+            <text x="90" y="20" fill="#ffffff" font-family="'Outfit', sans-serif" font-size="12" font-weight="bold" text-anchor="middle">reimbursements</text>
+            <text x="10" y="50" fill="#a78bfa" font-family="'Fira Code', monospace" font-size="11">PK | id (BIGINT)</text>
+            <text x="10" y="70" fill="#cbd5e1" font-family="'Fira Code', monospace" font-size="10">FK | expense_id</text>
+            <text x="10" y="90" fill="#e2e8f0" font-family="'Inter', sans-serif" font-size="11">status (VARCHAR)</text>
+            <text x="10" y="110" fill="#e2e8f0" font-family="'Inter', sans-serif" font-size="11">payout_ref (VARCHAR)</text>
+          </g>
+          
+          <!-- Table: Audit Logs -->
+          <g transform="translate(740, 270)">
+            <rect width="180" height="150" rx="6" fill="#1e293b" stroke="#f43f5e" stroke-width="2"/>
+            <rect width="180" height="30" rx="6" fill="#f43f5e"/>
+            <text x="90" y="20" fill="#ffffff" font-family="'Outfit', sans-serif" font-size="12" font-weight="bold" text-anchor="middle">audit_logs</text>
+            <text x="10" y="50" fill="#a78bfa" font-family="'Fira Code', monospace" font-size="11">PK | id (BIGINT)</text>
+            <text x="10" y="70" fill="#e2e8f0" font-family="'Inter', sans-serif" font-size="11">operator (VARCHAR)</text>
+            <text x="10" y="90" fill="#e2e8f0" font-family="'Inter', sans-serif" font-size="11">action (VARCHAR)</text>
+            <text x="10" y="110" fill="#e2e8f0" font-family="'Inter', sans-serif" font-size="11">old_val (TEXT/JSON)</text>
+            <text x="10" y="130" fill="#e2e8f0" font-family="'Inter', sans-serif" font-size="11">new_val (TEXT/JSON)</text>
+          </g>
+
+          <!-- Connecting Relations -->
+          <!-- Company -> Users (1:N) -->
+          <path d="M 210 95 L 280 95" stroke="#4f46e5" stroke-width="1.5" fill="none" stroke-dasharray="3,3"/>
+          <circle cx="210" cy="95" r="3" fill="#4f46e5"/>
+          
+          <!-- Company -> Budgets (1:N) -->
+          <path d="M 120 40 L 120 20 L 620 20 L 620 40" stroke="#4f46e5" stroke-width="1.5" fill="none"/>
+          
+          <!-- Users -> Expenses (1:N) -->
+          <path d="M 370 210 L 370 270" stroke="#6366f1" stroke-width="1.5" fill="none"/>
+          <circle cx="370" cy="210" r="3" fill="#6366f1"/>
+          
+          <!-- Users -> Users (Manager hierarchy self-ref) -->
+          <path d="M 460 60 L 480 60 L 480 120 L 460 120" stroke="#6366f1" stroke-width="1.2" fill="none"/>
+          
+          <!-- Budgets -> Expenses (1:N) -->
+          <path d="M 620 170 L 620 230 L 430 230 L 430 270" stroke="#10b981" stroke-width="1.5" fill="none"/>
+          
+          <!-- Expenses -> ApprovalWorkflows (1:N) -->
+          <path d="M 280 345 L 210 345" stroke="#38bdf8" stroke-width="1.5" fill="none"/>
+          
+          <!-- Expenses -> Reimbursements (1:1) -->
+          <path d="M 460 345 L 530 345" stroke="#38bdf8" stroke-width="1.5" fill="none"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- SECTION 4 -->
+    <section class="card page-break">
+      <h2>4. Module Walkthroughs</h2>
+      <p>
+        FinFlow AI is structured dynamically across 12 distinct logical modules. Here is an overview of how the frontend UI page views connect with the backend service layer implementations:
+      </p>
+      
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Module / Domain</th>
+              <th>Backend Architecture & Responsibilities</th>
+              <th>Frontend Views & Client State</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Auth</strong></td>
+              <td>
+                Handles stateless credentials validation via <code>AuthController</code>. Generates short-lived JWT access tokens and long-lived database-backed refresh tokens. Prevents session hijacking.
+              </td>
+              <td>
+                Premium Glassmorphic Login & Register Views. Operates with an <code>AuthContext</code> provider, holding active session states and user metadata.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>2. Company</strong></td>
+              <td>
+                Manages organizational profiles (name, tax ID, addresses). Serves as the base tenant barrier.
+              </td>
+              <td>
+                Administration Settings panel. Handles tenant metadata queries and controls modifications.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>3. User & RBAC</strong></td>
+              <td>
+                Enforces Role-Based Access Control policies. Allows admins to invite users, modify statuses (active/inactive), and change user roles.
+              </td>
+              <td>
+                Company Directory table. Offers search/filtering and actions (such as deactivate, change role) protected behind client-side user role flags.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>4. Budgets</strong></td>
+              <td>
+                Manages departmental funding structures. Validates date-range overlaps, deducts funds during approval, and throws exceptions on overrun.
+              </td>
+              <td>
+                Budget Dashboard. Displays tracking charts mapping allocated vs. utilized funds, highlighting low-balance alerts.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>5. Vendors</strong></td>
+              <td>
+                Stores external suppliers profiles. Enforces referential validation to block supplier deletion if linked to unpaid invoices.
+              </td>
+              <td>
+                Vendors Management View. A modal-driven creation form and directories tracking vendor status.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>6. Invoices</strong></td>
+              <td>
+                Manages accounts payable bills. Files PDF files locally, tracks due dates, and alerts users of overdue accounts.
+              </td>
+              <td>
+                Invoice Ledger page. Shows bills status, highlights overdue items, and integrates file uploads.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>7. Expenses</strong></td>
+              <td>
+                Core expense tracker. Saves claims as drafts, attaches files locally, and manages expense transitions.
+              </td>
+              <td>
+                My Expenses Dashboard. Supports drag-and-drop receipt uploads and lists claims in tabs grouped by status.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>8. Approvals</strong></td>
+              <td>
+                Workflow manager routing claims dynamically. Auto-approves under $5,000; routes to manager for $5,000–$25,000; requires Finance Manager pool for higher values.
+              </td>
+              <td>
+                Review Inbox. Displays incoming approval cards for managers, with quick actions to approve, reject, or comment.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>9. Reimbursements</strong></td>
+              <td>
+                Logs employee payouts. Links approved expenses to pending reimbursements and records payment references.
+              </td>
+              <td>
+                Disbursements Tracker. Provides Finance Managers a payment action view, complete with payment reference input.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>10. Audit Logging</strong></td>
+              <td>
+                Captures system modifications (action, user, changes, timestamp). Serializes old and new entity states to JSON.
+              </td>
+              <td>
+                Audit log viewer. Displays log events in tables, showing detailed JSON differences.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>11. Dashboard</strong></td>
+              <td>
+                Aggregates statistics (pending claims, utilized budget percentages, due invoices) into single payloads.
+              </td>
+              <td>
+                User Dashboard Hub. Displays modern metric cards, progress indicators, and glassmorphic stats.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>12. Analytics</strong></td>
+              <td>
+                Aggregates metrics for charting (monthly spend trends, departmental distributions).
+              </td>
+              <td>
+                Analytics Hub. Uses Recharts to render interactive line, bar, and pie graphs.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 5 -->
+    <section class="card page-break">
+      <h2>5. Complete REST API Endpoint Directory</h2>
+      <p>
+        The backend exposes standardized JSON endpoints secured with method-level authorization checks.
+      </p>
+      
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Verb</th>
+              <th>Endpoint Path</th>
+              <th>Required Role</th>
+              <th>Request Body DTO</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Auth -->
+            <tr>
+              <td><span class="badge badge-post">POST</span></td>
+              <td><code>/api/auth/register</code></td>
+              <td>Public</td>
+              <td><code>RegisterRequest</code></td>
+              <td>Bootstraps a new company and registers its first Admin user.</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-post">POST</span></td>
+              <td><code>/api/auth/login</code></td>
+              <td>Public</td>
+              <td><code>LoginRequest</code></td>
+              <td>Validates credentials, returning JWT access and refresh tokens.</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-post">POST</span></td>
+              <td><code>/api/auth/refresh</code></td>
+              <td>Public</td>
+              <td><code>RefreshTokenRequest</code></td>
+              <td>Issues a new access token using a valid refresh token.</td>
+            </tr>
+            <!-- Users -->
+            <tr>
+              <td><span class="badge badge-post">POST</span></td>
+              <td><code>/api/users/invite</code></td>
+              <td><span class="badge badge-role">ADMIN</span>, <span class="badge badge-role">FINANCE_MANAGER</span></td>
+              <td><code>InviteEmployeeRequest</code></td>
+              <td>Creates a new employee account in the company directory.</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-put">PUT</span></td>
+              <td><code>/api/users/{id}/activate</code></td>
+              <td><span class="badge badge-role">ADMIN</span>, <span class="badge badge-role">FINANCE_MANAGER</span></td>
+              <td>None</td>
+              <td>Activates a deactivated user account.</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-put">PUT</span></td>
+              <td><code>/api/users/{id}/deactivate</code></td>
+              <td><span class="badge badge-role">ADMIN</span>, <span class="badge badge-role">FINANCE_MANAGER</span></td>
+              <td>None</td>
+              <td>Deactivates a user account to block logins and actions.</td>
+            </tr>
+            <!-- Budgets -->
+            <tr>
+              <td><span class="badge badge-post">POST</span></td>
+              <td><code>/api/budgets</code></td>
+              <td><span class="badge badge-role">ADMIN</span>, <span class="badge badge-role">FINANCE_MANAGER</span></td>
+              <td><code>BudgetRequest</code></td>
+              <td>Creates a departmental budget allocation. Checks for date overlaps.</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-get">GET</span></td>
+              <td><code>/api/budgets/active</code></td>
+              <td>Authenticated</td>
+              <td>None</td>
+              <td>Gets the active budget for a specific department.</td>
+            </tr>
+            <!-- Expenses -->
+            <tr>
+              <td><span class="badge badge-post">POST</span></td>
+              <td><code>/api/expenses</code></td>
+              <td>Authenticated</td>
+              <td>Multipart: DTO & File</td>
+              <td>Creates an expense claim as a draft. Uploads receipts.</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-post">POST</span></td>
+              <td><code>/api/expenses/{id}/submit</code></td>
+              <td>Owner Only</td>
+              <td>None</td>
+              <td>Submits a draft expense claim, triggering approval workflow routing.</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-get">GET</span></td>
+              <td><code>/api/expenses/review</code></td>
+              <td><span class="badge badge-role">MANAGER</span>, <span class="badge badge-role">FINANCE_MANAGER</span></td>
+              <td>None</td>
+              <td>Gets pending expense claims routed to the current user.</td>
+            </tr>
+            <!-- Approvals -->
+            <tr>
+              <td><span class="badge badge-patch">PATCH</span></td>
+              <td><code>/api/approvals/{id}/approve</code></td>
+              <td>Approver Only</td>
+              <td><code>ApprovalRequest</code></td>
+              <td>Approves an expense, transitioning it or generating a reimbursement.</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-patch">PATCH</span></td>
+              <td><code>/api/approvals/{id}/reject</code></td>
+              <td>Approver Only</td>
+              <td><code>ApprovalRequest</code></td>
+              <td>Rejects an expense claim, requiring rejection comments.</td>
+            </tr>
+            <!-- Reimbursements -->
+            <tr>
+              <td><span class="badge badge-patch">PATCH</span></td>
+              <td><code>/api/reimbursements/{id}/pay</code></td>
+              <td><span class="badge badge-role">FINANCE_MANAGER</span></td>
+              <td><code>PaymentRequest</code></td>
+              <td>Marks a reimbursement as paid, recording transaction UTR reference.</td>
+            </tr>
+            <!-- Invoices -->
+            <tr>
+              <td><span class="badge badge-post">POST</span></td>
+              <td><code>/api/invoices</code></td>
+              <td><span class="badge badge-role">ADMIN</span>, <span class="badge badge-role">FINANCE_MANAGER</span></td>
+              <td>Multipart: DTO & File</td>
+              <td>Records an accounts payable vendor invoice.</td>
+            </tr>
+            <!-- Audit Logs -->
+            <tr>
+              <td><span class="badge badge-get">GET</span></td>
+              <td><code>/api/audit-logs</code></td>
+              <td><span class="badge badge-role">ADMIN</span>, <span class="badge badge-role">AUDITOR</span></td>
+              <td>None</td>
+              <td>Retrieves the immutable audit log ledger.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 6 -->
+    <section class="card page-break">
+      <h2>6. Core Design Patterns & Technical Deep Dive</h2>
+      
+      <h3>1. Concurrency Control (Preventing Budget Double-Spending)</h3>
+      <p>
+        In high-concurrency enterprise applications, two managers approving expenses simultaneously could read the same budget database row, verify that <code>utilizedAmount + claimAmount &lt;= allocatedAmount</code>, and write conflicting updates. This race condition leads to budget overruns.
+      </p>
+      <p>
+        To prevent this, FinFlow AI implements **Pessimistic Write Locking** during budget utilization. The repository method is declared as:
+      </p>
+      <pre><code>@Lock(LockModeType.PESSIMISTIC_WRITE)
+@Query("SELECT b FROM Budget b WHERE b.id = :id")
+Optional&lt;Budget&gt; findBudgetForUpdate(@Param("id") Long id);</code></pre>
+      <p>
+        When transaction A executes this query, Hibernate issues a <code>SELECT ... FOR UPDATE</code> SQL statement. This locks the database row. When transaction B attempts to retrieve the same budget, it blocks at the database level until transaction A completes its commit or rollback, ensuring strict database isolation and consistency.
+      </p>
+
+      <h3>2. DTO Pattern & MapStruct Code Mappings</h3>
+      <p>
+        Exposing JPA entity classes directly to the web layer presents several issues: it leaks password hashes, creates lazy initialization exceptions on un-fetched relations, and couples API contracts to database changes.
+      </p>
+      <p>
+        To address this, we use clean DTO boundaries mapped via **MapStruct**. MapStruct works during the Maven compilation phase, generating type-safe, reflection-free Java code:
+      </p>
+      <pre><code>@Mapper(componentModel = "spring")
+public interface UserMapper {
+    @Mapping(target = "companyId", source = "company.id")
+    @Mapping(target = "managerId", source = "manager.id")
+    @Mapping(target = "managerName", expression = "java(user.getManager() != null ? user.getManager().getFirstName() + \" \" + user.getManager().getLastName() : null)")
+    UserResponse toResponse(User user);
+}</code></pre>
+      <p>
+        This compilation approach performs mapping using native getters and setters, eliminating the performance overhead of runtime reflection library engines (like ModelMapper).
+      </p>
+
+      <h3>3. Global Rest Exception Handler</h3>
+      <p>
+        Centralizing exception handling in a <code>@RestControllerAdvice</code> class keeps code clean and ensures clients receive predictable error payloads:
+      </p>
+      <pre><code>@RestControllerAdvice
+public class GlobalExceptionHandler {
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity&lt;ApiResponse&lt;Void&gt;&gt; handleBusiness(BusinessException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                             .body(ApiResponse.error(ex.getMessage()));
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity&lt;ApiResponse&lt;Void&gt;&gt; handleValidation(MethodArgumentNotValidException ex) {
+        String details = ex.getBindingResult().getFieldErrors().stream()
+                           .map(error -&gt; error.getField() + ": " + error.getDefaultMessage())
+                           .collect(Collectors.joining(", "));
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
+                             .body(ApiResponse.error("Validation failed: " + details));
+    }
+}</code></pre>
+    </section>
+
+    <!-- SECTION 7 -->
+    <section class="card page-break">
+      <h2>7. Scaling & Production Architecture Roadmap</h2>
+      <p>
+        To transition FinFlow AI from a monolith to a high-volume enterprise application, we have planned a microservices migration path:
+      </p>
+      <div class="grid">
+        <div class="card" style="margin: 0; background: rgba(30,41,59,0.3);">
+          <h3>Asynchronous Logging (Kafka)</h3>
+          <p>
+            Writing audit logs synchronously blocks transaction threads, slowing down key database operations. 
+          </p>
+          <p>
+            We will introduce a Kafka publisher in the service layer. Instead of writing directly to the database, audit details will be published to a <code>finflow-audit-topic</code>. An audit listener consumer will read these messages asynchronously and batch-write logs to the database, isolating logging from business transactions.
+          </p>
+        </div>
+        <div class="card" style="margin: 0; background: rgba(30,41,59,0.3);">
+          <h3>Distributed Caching (Redis)</h3>
+          <p>
+            Stateless JWT verification requires database lookups for user directory access, which degrades database performance.
+          </p>
+          <p>
+            We will integrate Redis to cache active budget records, user profiles, and organization metadata. Redis will also manage a JWT blacklist cache for active session invalidations on logout, and coordinate distributed locks via Redisson for budget deductions.
+          </p>
+        </div>
+      </div>
+      <div class="card" style="background: rgba(30,41,59,0.3); margin-bottom: 0;">
+        <h3>Dockerized Deployment Setup</h3>
+        <p>
+          To ensure consistent deployment across environments, multi-stage Docker builds are planned:
+        </p>
+        <pre><code># Multi-Stage Backend Dockerfile
+FROM maven:3.9-eclipse-temurin-21-alpine AS build
+WORKDIR /app
+COPY pom.xml .
+RUN mvn dependency:go-offline
+COPY src ./src
+RUN mvn clean package -DskipTests
+
+FROM eclipse-temurin:21-jre-alpine
+WORKDIR /app
+COPY --from=build /app/target/finflow-ai-0.0.1-SNAPSHOT.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]</code></pre>
+      </div>
+    </section>
+
+    <!-- SECTION 8 (INTERVIEW PREP) -->
+    <section class="card page-break">
+      <h2>8. High-Yield Interview Preparation Q&A Guide</h2>
+      <p>
+        This guide compiles 25 detailed interview questions and answers directly related to the design and implementation of FinFlow AI.
+      </p>
+
+      <!-- Q1 -->
+      <div style="margin-bottom: 25px;">
+        <h4 style="color: var(--primary);">Q1: What is a modular monolith, and why did you choose it over microservices for Phase 1?</h4>
+        <p>
+          <strong>Answer:</strong> A modular monolith is an architecture where code is organized in self-contained packages aligned by domain features rather than horizontal technical layers. We chose this approach for Phase 1 to avoid the operational overhead of microservices (like network latency, deployment complexity, and distributed tracing). Keeping all features within a single deployment unit makes transaction management straightforward while feature-based packaging preserves clear boundaries for future extraction.
+        </p>
+      </div>
+
+      <!-- Q2 -->
+      <div style="margin-bottom: 25px;">
+        <h4 style="color: var(--primary);">Q2: Explain how Pessimistic Write Locking works in your application. Which database query does it generate?</h4>
+        <p>
+          <strong>Answer:</strong> We use <code>@Lock(LockModeType.PESSIMISTIC_WRITE)</code> on budget queries to handle concurrent expense claims. This directs the database to acquire a lock on the queried row:
+          <br>
+          <code>SELECT id, allocated_amount, utilized_amount FROM budgets WHERE id = ? FOR UPDATE;</code>
+          <br>
+          Any concurrent transaction trying to read or write to this budget row must wait until the locking transaction commits, preventing budget utilization race conditions.
+        </p>
+      </div>
+
+      <!-- Q3 -->
+      <div style="margin-bottom: 25px;">
+        <h4 style="color: var(--primary);">Q3: What are the differences between optimistic and pessimistic locking? When would you use each?</h4>
+        <p>
+          <strong>Answer:</strong> Optimistic locking uses a version field (e.g. <code>@Version</code>) and checks if the version has changed before writing updates. If it has, it throws an exception. This works well for read-heavy systems with low collision rates. Pessimistic locking acquires a database lock on the row, blocking other transactions. This is suited for write-heavy, high-collision scenarios (like budget deductions or stock balances) where resolving conflicts via rollbacks would be inefficient.
+        </p>
+      </div>
+
+      <!-- Q4 -->
+      <div style="margin-bottom: 25px;">
+        <h4 style="color: var(--primary);">Q4: How did you implement JWT refresh tokens? What vulnerability does this address?</h4>
+        <p>
+          <strong>Answer:</strong> Access tokens expire quickly (e.g., 20 minutes) to limit exposure if compromised. Refresh tokens are long-lived and stored securely in the database. When the access token expires, the client sends the refresh token to the <code>/api/auth/refresh</code> endpoint to acquire a new access token, allowing users to remain logged in securely.
+        </p>
+      </div>
+
+      <!-- Q5 -->
+      <div style="margin-bottom: 25px;">
+        <h4 style="color: var(--primary);">Q5: What is the purpose of the axios interceptor on the React frontend?</h4>
+        <p>
+          <strong>Answer:</strong> The frontend Axios client implements response interceptors. If a request fails with a 401 Unauthorized error (indicating an expired access token), the interceptor pauses outgoing requests, calls <code>/auth/refresh</code> to refresh the token, updates client headers, and retries the failed request.
+        </p>
+      </div>
+
+      <!-- Q6 -->
+      <div style="margin-bottom: 25px;">
+        <h4 style="color: var(--primary);">Q6: How does Spring Security authenticate users? Walk through the filter chain.</h4>
+        <p>
+          <strong>Answer:</strong> The filter chain intercepts incoming requests. The <code>JwtAuthenticationFilter</code> checks for a Bearer token in the <code>Authorization</code> header. If found, it validates the token signature, extracts the username and roles, creates a <code>UsernamePasswordAuthenticationToken</code> containing the user's authorities, and stores it in the thread-local <code>SecurityContextHolder</code>, marking the user as authenticated.
+        </p>
+      </div>
+
+      <!-- Q7 -->
+      <div style="margin-bottom: 25px;">
+        <h4 style="color: var(--primary);">Q7: Why do we use the DTO (Data Transfer Object) pattern?</h4>
+        <p>
+          <strong>Answer:</strong> DTOs separate database models from API contracts. This decouples client payloads from schema changes, prevents lazy initialization exceptions when serializing entity relationships, and keeps sensitive fields (like password hashes) out of API responses.
+        </p>
+      </div>
+
+      <!-- Q8 -->
+      <div style="margin-bottom: 25px;">
+        <h4 style="color: var(--primary);">Q8: How does MapStruct compare to runtime reflection mappers like ModelMapper?</h4>
+        <p>
+          <strong>Answer:</strong> MapStruct generates standard Java mapping code during compile time, ensuring type safety and optimal performance. Reflection-based mappers evaluate and convert fields at runtime, which incurs a performance cost.
+        </p>
+      </div>
+
+      <!-- Q9 -->
+      <div style="margin-bottom: 25px;">
+        <h4 style="color: var(--primary);">Q9: Explain the ACID properties of database transactions and how PostgreSQL enforces them.</h4>
+        <p>
+          <strong>Answer:</strong> 
+          <ul>
+            <li><strong>Atomicity:</strong> Enforces that all operations in a transaction commit successfully, or all rollback.</li>
+            <li><strong>Consistency:</strong> Ensures transactions transition the database from one valid state to another, preserving constraints.</li>
+            <li><strong>Isolation:</strong> Uses transaction isolation levels to keep concurrent operations from interfering.</li>
+            <li><strong>Durability:</strong> Guarantees committed updates are persisted, even in a system crash (typically using write-ahead logs).</li>
+          </ul>
+        </p>
+      </div>
+
+      <!-- Q10 -->
+      <div style="margin-bottom: 25px;">
+        <h4 style="color: var(--primary);">Q10: What are dirty reads, non-repeatable reads, and phantom reads?</h4>
+        <p>
+          <strong>Answer:</strong> 
+          <ul>
+            <li><strong>Dirty Read:</strong> A transaction reads uncommitted changes from another transaction.</li>
+            <li><strong>Non-repeatable Read:</strong> A transaction reads a row, and a concurrent transaction updates it, so re-reading the row returns different data.</li>
+            <li><strong>Phantom Read:</strong> A transaction queries rows matching a condition, and a concurrent transaction inserts new matching rows, so re-running the query returns new "phantom" rows.</li>
+          </ul>
+        </p>
+      </div>
+
+      <!-- Q11 -->
+      <div style="margin-bottom: 25px;">
+        <h4 style="color: var(--primary);">Q11: What is the default transaction isolation level in PostgreSQL? How does it compare to Read Committed?</h4>
+        <p>
+          <strong>Answer:</strong> The default level is Read Committed. In this level, a query only sees data committed before the query began. It prevents dirty reads, but non-repeatable and phantom reads can still occur.
+        </p>
+      </div>
+
+      <!-- Q12 -->
+      <div style="margin-bottom: 25px;">
+        <h4 style="color: var(--primary);">Q12: How does the Global Exception Handler work in Spring Boot?</h4>
+        <p>
+          <strong>Answer:</strong> An exception handler uses <code>@RestControllerAdvice</code> to catch exceptions thrown by controller actions. It intercepts the exception, formats it into a standardized <code>ApiResponse</code> payload, and sets the appropriate HTTP status code.
+        </p>
+      </div>
+
+      <!-- Q13 -->
+      <div style="margin-bottom: 25px;">
+        <h4 style="color: var(--primary);">Q13: Why did you implement manual audit logging instead of Hibernate Entity Listeners?</h4>
+        <p>
+          <strong>Answer:</strong> Hibernate listeners run inside entity lifecycle phases, which can trigger unexpected flush events, cause session issues, or lock transactions. Implementing manual logging in the service layer gives us precise control over when logs are created and allows us to serialize before/after states using Jackson's <code>ObjectMapper</code> without database hook conflicts.
+        </p>
+      </div>
+
+      <!-- Q14 -->
+      <div style="margin-bottom: 25px;">
+        <h4 style="color: var(--primary);">Q14: Explain the dynamic routing logic of the expense approval engine.</h4>
+        <p>
+          <strong>Answer:</strong> The routing engine uses the claim amount to determine the approval path:
+          <ul>
+            <li><strong>Under $5,000:</strong> Auto-approves and generates a pending reimbursement.</li>
+            <li><strong>$5,000 to $25,000:</strong> Routes to the employee's direct manager.</li>
+            <li><strong>Over $25,000:</strong> Routes to the Finance Manager approval pool.</li>
+          </ul>
+        </p>
+      </div>
+
+      <!-- Q15 -->
+      <div style="margin-bottom: 25px;">
+        <h4 style="color: var(--primary);">Q15: How does the application prevent vendor records from being deleted if they have unpaid invoices?</h4>
+        <p>
+          <strong>Answer:</strong> Before deleting a vendor, the system calls <code>invoiceRepository.existsByVendorIdAndStatusNot(vendorId, InvoiceStatus.PAID)</code>. If unpaid invoices exist, it throws a business validation exception to protect relational data.
+        </p>
+      </div>
+
+      <!-- Q16 -->
+      <div style="margin-bottom: 25px;">
+        <h4 style="color: var(--primary);">Q16: What is a lazy initialization exception, and how does your DTO setup prevent it?</h4>
+        <p>
+          <strong>Answer:</strong> This exception occurs when the system attempts to access a lazily-loaded entity relationship outside of an active database session. Because DTO conversion occurs within the service layer transaction context (while the Hibernate session is active), relations are fetched and converted to flat values safely before the session closes.
+        </p>
+      </div>
+
+      <!-- Q17 -->
+      <div style="margin-bottom: 25px;">
+        <h4 style="color: var(--primary);">Q17: How does Spring Boot's IoC container manage dependency injection?</h4>
+        <p>
+          <strong>Answer:</strong> The IoC (Inversion of Control) container manages bean instantiation, configuration, and lifecycles. Dependencies are injected using constructor injection, which makes components easier to unit test.
+        </p>
+      </div>
+
+      <!-- Q18 -->
+      <div style="margin-bottom: 25px;">
+        <h4 style="color: var(--primary);">Q18: What is the benefit of the StorageService abstraction for file uploads?</h4>
+        <p>
+          <strong>Answer:</strong> The application depends on a generic <code>StorageService</code> interface. During development, it uses a local file implementation. For production, we can swap in an AWS S3 implementation without changing any business logic.
+        </p>
+      </div>
+
+      <!-- Q19 -->
+      <div style="margin-bottom: 25px;">
+        <h4 style="color: var(--primary);">Q19: How does the application validate dates when creating department budgets?</h4>
+        <p>
+          <strong>Answer:</strong> Before saving a budget, the system runs a query to verify there are no active budgets for the same department with overlapping dates, ensuring clean funding windows.
+        </p>
+      </div>
+
+      <!-- Q20 -->
+      <div style="margin-bottom: 25px;">
+        <h4 style="color: var(--primary);">Q20: What is the benefit of using an API Gateway during a microservices migration?</h4>
+        <p>
+          <strong>Answer:</strong> An API Gateway serves as a single entry point for clients, routing requests to the appropriate microservices, managing CORS, handling centralized rate limiting, and verifying JWT tokens to shield downstream services.
+        </p>
+      </div>
+
+      <!-- Q21 -->
+      <div style="margin-bottom: 25px;">
+        <h4 style="color: var(--primary);">Q21: How would you scale audit logging using Kafka?</h4>
+        <p>
+          <strong>Answer:</strong> We would publish audit logs to a Kafka topic. An audit log microservice would consume these messages asynchronously, saving them to a dedicated database. This isolates logging from core business transactions.
+        </p>
+      </div>
+
+      <!-- Q22 -->
+      <div style="margin-bottom: 25px;">
+        <h4 style="color: var(--primary);">Q22: How does Redis manage JWT invalidation on user logout?</h4>
+        <p>
+          <strong>Answer:</strong> When a user logs out, their JWT is added to a Redis blacklist cache with an expiration time equal to the token's remaining validity. The security filter checks this cache for every request, rejecting blacklisted tokens.
+        </p>
+      </div>
+
+      <!-- Q23 -->
+      <div style="margin-bottom: 25px;">
+        <h4 style="color: var(--primary);">Q23: What is the purpose of multi-stage Docker builds?</h4>
+        <p>
+          <strong>Answer:</strong> Multi-stage builds use separate build and runtime environments. In the build stage, the application is compiled using Maven. The final image only copies the compiled JAR, keeping the deployment image small and secure.
+        </p>
+      </div>
+
+      <!-- Q24 -->
+      <div style="margin-bottom: 25px;">
+        <h4 style="color: var(--primary);">Q24: How would you deploy FinFlow AI to a cloud environment like AWS?</h4>
+        <p>
+          <strong>Answer:</strong> We would package the application as Docker containers, host the database on Amazon RDS, and run the backend on ECS or EKS. Static assets would be served from S3 via CloudFront.
+        </p>
+      </div>
+
+      <!-- Q25 -->
+      <div style="margin-bottom: 25px;">
+        <h4 style="color: var(--primary);">Q25: How do you verify user roles on the React frontend securely?</h4>
+        <p>
+          <strong>Answer:</strong> The client reads the user's role from the signed JWT payload. While client-side checks can hide UI elements, all business actions are secured on the backend using <code>@PreAuthorize</code> annotations to prevent authorization bypasses.
+        </p>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer style="text-align: center; margin-top: 80px; padding: 20px 0; border-top: 1px solid var(--card-border); color: var(--text-muted); font-size: 0.85rem;">
+      <p>FinFlow AI Technical Documentation Report &copy; 2026. Prepared for Professional Resume & Interview Portfolio.</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>
