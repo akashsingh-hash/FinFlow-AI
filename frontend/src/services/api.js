@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: import.meta.env.VITE_API_URL || '/api',
 });
 
 // Request Interceptor: Attach JWT Access Token
@@ -67,7 +67,7 @@ api.interceptors.response.use(
 
       try {
         // Direct axios call to prevent circular interceptor calls
-        const response = await axios.post('/api/auth/refresh', { refreshToken });
+        const response = await axios.post(`${import.meta.env.VITE_API_URL || ''}/api/auth/refresh`, { refreshToken });
         const { accessToken, refreshToken: newRefreshToken, user } = response.data.data;
 
         localStorage.setItem('token', accessToken);
