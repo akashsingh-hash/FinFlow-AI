@@ -28,6 +28,30 @@ FinFlow AI is a high-performance, modular monolith designed to eliminate spend l
 
 ---
 
+# 🎬 Live Demo
+
+<p align="center">
+  <a href="https://youtu.be/Wt1oAPdlTS0?si=-P65SeXgEz-4C5Y3" target="_blank">
+    <img
+      src="docs/Screenshot%202026-06-30%20193836.png"
+      alt="FinFlow AI Demo"
+      width="100%"
+    />
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://youtu.be/Wt1oAPdlTS0?si=-P65SeXgEz-4C5Y3">
+    <img src="https://img.shields.io/badge/▶%20Watch%20Live%20Demo-YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white">
+  </a>
+</p>
+
+<p align="center">
+  <b>Click the image above or the button to watch the complete FinFlow AI demonstration.</b>
+</p>
+
+---
+
 ## 🧱 System Architecture
 
 FinFlow AI is designed as a **Modular Monolith by Feature**, aligning perfectly with DDD (Domain-Driven Design) principles. Each business unit is fully contained within its own package boundary (e.g., `module/expense`, `module/budget`), ensuring a smooth future migration path to Microservices.
