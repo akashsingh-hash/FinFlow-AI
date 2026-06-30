@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-06-18T13:35:30+0530",
-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.46.0.v20260407-0427, environment: Java 21.0.10 (Eclipse Adoptium)"
+    date = "2026-06-30T09:57:36+0530",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 24 (Oracle Corporation)"
 )
 @Component
 public class InvoiceMapperImpl implements InvoiceMapper {
@@ -26,13 +26,13 @@ public class InvoiceMapperImpl implements InvoiceMapper {
         invoiceResponse.companyId( invoiceCompanyId( invoice ) );
         invoiceResponse.vendorId( invoiceVendorId( invoice ) );
         invoiceResponse.vendorName( invoiceVendorName( invoice ) );
-        invoiceResponse.amount( invoice.getAmount() );
-        invoiceResponse.createdAt( invoice.getCreatedAt() );
-        invoiceResponse.dueDate( invoice.getDueDate() );
-        invoiceResponse.fileUrl( invoice.getFileUrl() );
         invoiceResponse.id( invoice.getId() );
         invoiceResponse.invoiceNumber( invoice.getInvoiceNumber() );
+        invoiceResponse.amount( invoice.getAmount() );
+        invoiceResponse.dueDate( invoice.getDueDate() );
         invoiceResponse.status( invoice.getStatus() );
+        invoiceResponse.fileUrl( invoice.getFileUrl() );
+        invoiceResponse.createdAt( invoice.getCreatedAt() );
         invoiceResponse.updatedAt( invoice.getUpdatedAt() );
 
         return invoiceResponse.build();
@@ -46,9 +46,9 @@ public class InvoiceMapperImpl implements InvoiceMapper {
 
         Invoice.InvoiceBuilder invoice = Invoice.builder();
 
+        invoice.invoiceNumber( request.getInvoiceNumber() );
         invoice.amount( request.getAmount() );
         invoice.dueDate( request.getDueDate() );
-        invoice.invoiceNumber( request.getInvoiceNumber() );
 
         return invoice.build();
     }
@@ -59,9 +59,9 @@ public class InvoiceMapperImpl implements InvoiceMapper {
             return;
         }
 
+        invoice.setInvoiceNumber( request.getInvoiceNumber() );
         invoice.setAmount( request.getAmount() );
         invoice.setDueDate( request.getDueDate() );
-        invoice.setInvoiceNumber( request.getInvoiceNumber() );
     }
 
     private Long invoiceCompanyId(Invoice invoice) {

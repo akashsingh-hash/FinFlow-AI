@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-06-18T13:35:30+0530",
-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.46.0.v20260407-0427, environment: Java 21.0.10 (Eclipse Adoptium)"
+    date = "2026-06-30T09:57:36+0530",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 24 (Oracle Corporation)"
 )
 @Component
 public class ExpenseMapperImpl implements ExpenseMapper {
@@ -27,14 +27,14 @@ public class ExpenseMapperImpl implements ExpenseMapper {
         expenseResponse.userEmail( expenseUserEmail( expense ) );
         expenseResponse.budgetId( expenseBudgetId( expense ) );
         expenseResponse.budgetDepartment( expenseBudgetDepartment( expense ) );
-        expenseResponse.amount( expense.getAmount() );
-        expenseResponse.category( expense.getCategory() );
-        expenseResponse.createdAt( expense.getCreatedAt() );
-        expenseResponse.description( expense.getDescription() );
         expenseResponse.id( expense.getId() );
-        expenseResponse.receiptUrl( expense.getReceiptUrl() );
-        expenseResponse.status( expense.getStatus() );
         expenseResponse.title( expense.getTitle() );
+        expenseResponse.amount( expense.getAmount() );
+        expenseResponse.description( expense.getDescription() );
+        expenseResponse.status( expense.getStatus() );
+        expenseResponse.category( expense.getCategory() );
+        expenseResponse.receiptUrl( expense.getReceiptUrl() );
+        expenseResponse.createdAt( expense.getCreatedAt() );
         expenseResponse.updatedAt( expense.getUpdatedAt() );
 
         expenseResponse.userFullName( expense.getUser().getFirstName() + " " + expense.getUser().getLastName() );
@@ -50,10 +50,10 @@ public class ExpenseMapperImpl implements ExpenseMapper {
 
         Expense.ExpenseBuilder expense = Expense.builder();
 
-        expense.amount( request.getAmount() );
-        expense.category( request.getCategory() );
-        expense.description( request.getDescription() );
         expense.title( request.getTitle() );
+        expense.amount( request.getAmount() );
+        expense.description( request.getDescription() );
+        expense.category( request.getCategory() );
 
         return expense.build();
     }
@@ -64,10 +64,10 @@ public class ExpenseMapperImpl implements ExpenseMapper {
             return;
         }
 
-        expense.setAmount( request.getAmount() );
-        expense.setCategory( request.getCategory() );
-        expense.setDescription( request.getDescription() );
         expense.setTitle( request.getTitle() );
+        expense.setAmount( request.getAmount() );
+        expense.setDescription( request.getDescription() );
+        expense.setCategory( request.getCategory() );
     }
 
     private Long expenseUserId(Expense expense) {

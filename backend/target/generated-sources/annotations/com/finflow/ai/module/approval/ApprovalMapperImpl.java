@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-06-18T13:35:30+0530",
-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.46.0.v20260407-0427, environment: Java 21.0.10 (Eclipse Adoptium)"
+    date = "2026-06-30T09:57:36+0530",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 24 (Oracle Corporation)"
 )
 @Component
 public class ApprovalMapperImpl implements ApprovalMapper {
@@ -27,10 +27,10 @@ public class ApprovalMapperImpl implements ApprovalMapper {
         approvalResponse.expenseTitle( approvalWorkflowExpenseTitle( approvalWorkflow ) );
         approvalResponse.expenseAmount( approvalWorkflowExpenseAmount( approvalWorkflow ) );
         approvalResponse.approverId( approvalWorkflowApproverId( approvalWorkflow ) );
-        approvalResponse.comments( approvalWorkflow.getComments() );
-        approvalResponse.createdAt( approvalWorkflow.getCreatedAt() );
         approvalResponse.id( approvalWorkflow.getId() );
         approvalResponse.status( approvalWorkflow.getStatus() );
+        approvalResponse.comments( approvalWorkflow.getComments() );
+        approvalResponse.createdAt( approvalWorkflow.getCreatedAt() );
         approvalResponse.updatedAt( approvalWorkflow.getUpdatedAt() );
 
         approvalResponse.expenseUserFullName( approvalWorkflow.getExpense().getUser().getFirstName() + " " + approvalWorkflow.getExpense().getUser().getLastName() );

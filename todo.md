@@ -109,3 +109,35 @@ Use the password **`password123`** for all preconfigured accounts when running t
   * Confirm that the **Departmental Budget Consumption** bar graph has updated its height reflecting the money spent.
   * Confirm that the **Overall Budget Utilization** percentage bar has progressed (e.g. from 1% consumed to a higher percentage).
   * Confirm that **Pending Approvals** count matches exactly what is outstanding.
+
+Option C: Implement a Proper "Accept Invite" Page/Flow
+Create an invitation verification token and page.
+
+How it works: The invitation triggers an invite token. The user visits a URL like /accept-invite?token=xyz where they can set their own password directly.
+
+---
+
+## 🔟 Orderly Git Workflow & Development Cycle
+Follow these steps for any new feature or module development:
+
+1. **🔄 Get Latest Changes:**
+   * `git checkout main`
+   * `git pull origin main`
+2. **🌿 Create Feature Branch:**
+   * `git checkout -b feature/add-<feature-name>`
+3. **💾 Make Incremental Commits:**
+   * Stage changes: `git add .`
+   * Commit backend: `git commit -m "feat(backend): description of backend changes"`
+   * Commit frontend: `git commit -m "feat(frontend): description of frontend changes"`
+4. **🔀 Merge Main (To Resolve Conflicts):**
+   * `git checkout main && git pull origin main`
+   * `git checkout feature/add-<feature-name>`
+   * `git merge main`
+5. **📤 Push & Open Pull Request:**
+   * Push changes: `git push -u origin feature/add-<feature-name>`
+   * Open a PR on GitHub and click **Merge pull request** after checks pass.
+6. **🧹 Clean Up Local Workspace:**
+   * `git checkout main`
+   * `git pull origin main`
+   * `git branch -d feature/add-<feature-name>`
+   * `git remote prune origin`

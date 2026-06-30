@@ -1,16 +1,105 @@
 @import "tailwindcss";
 
+:root {
+  --background: 0 0% 10%;
+  --foreground: 0 0% 96%;
+  --primary: 119 99% 46%;
+  --primary-foreground: 0 0% 4%;
+  --secondary: 0 0% 18%;
+  --secondary-foreground: 0 0% 96%;
+  --muted: 0 0% 16%;
+  --muted-foreground: 0 0% 60%;
+  --accent: 119 99% 46%;
+  --accent-foreground: 0 0% 4%;
+  --destructive: 0 84% 60%;
+  --border: 0 0% 20%;
+  --input: 0 0% 20%;
+  --ring: 119 99% 46%;
+  --radius: 0.5rem;
+  --nav-button: 0 0% 18%;
+  --hero-bg: 0 0% 8%;
+}
+
 @theme {
-  --color-brand-50: #f0fdf4;
-  --color-brand-100: #dcfce7;
-  --color-brand-500: #22c55e;
-  --color-brand-600: #16a34a;
-  --color-brand-700: #15803d;
+  --font-sora: "Sora", sans-serif;
+
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --radius: var(--radius);
+  --color-nav-button: hsl(var(--nav-button));
+  --color-hero-bg: hsl(var(--hero-bg));
+
+  /* Overriding standard brand/emerald/slate for dashboard global theme */
+  --color-brand-50: hsl(119 99% 95%);
+  --color-brand-100: hsl(119 99% 90%);
+  --color-brand-500: hsl(var(--primary));
+  --color-brand-600: hsl(119 99% 40%);
+  --color-brand-700: hsl(119 99% 34%);
+
+  --color-emerald-50: hsl(119 99% 95%);
+  --color-emerald-100: hsl(119 99% 90%);
+  --color-emerald-400: hsl(119 99% 55%);
+  --color-emerald-500: hsl(var(--primary));
+  --color-emerald-600: hsl(119 99% 40%);
+  --color-emerald-700: hsl(119 99% 34%);
+  --color-emerald-950: hsl(119 99% 8%);
   
-  --color-primary-50: #f8fafc;
-  --color-primary-100: #f1f5f9;
-  --color-primary-800: #1e293b;
-  --color-primary-900: #0f172a;
+  --color-slate-950: hsl(0 0% 10%); /* main bg */
+  --color-slate-900: hsl(0 0% 8%);  /* darkest panels */
+  --color-slate-800: hsl(0 0% 20%); /* border dark */
+  --color-slate-700: hsl(0 0% 30%);
+  --color-slate-600: hsl(0 0% 40%);
+  --color-slate-500: hsl(0 0% 50%);
+  --color-slate-400: hsl(0 0% 60%); /* muted text */
+  --color-slate-300: hsl(0 0% 75%);
+  --color-slate-200: hsl(0 0% 25%); /* border light */
+  --color-slate-100: hsl(0 0% 96%); /* text light */
+  --color-slate-50: hsl(0 0% 12%);  /* card default light */
+
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-fade-in: fade-in 0.5s ease-out forwards;
+
+  @keyframes fade-up {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+      filter: blur(4px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+  }
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+}
+
+body {
+  font-family: var(--font-sora);
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Premium Glassmorphism and Backdrop Filters */
@@ -23,7 +112,7 @@
 }
 
 .dark .glass-panel {
-  background: rgba(15, 23, 42, 0.65);
+  background: rgba(18, 18, 18, 0.65);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -38,18 +127,18 @@
 }
 
 .dark .glass-card {
-  background: rgba(30, 41, 59, 0.35);
+  background: rgba(26, 26, 26, 0.35);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 .glow-green {
-  box-shadow: 0 0 25px -5px rgba(34, 197, 94, 0.3);
+  box-shadow: 0 0 25px -5px rgba(119, 252, 117, 0.3);
 }
 
 .dark .glow-green {
-  box-shadow: 0 0 35px -5px rgba(34, 197, 94, 0.15);
+  box-shadow: 0 0 35px -5px rgba(119, 252, 117, 0.15);
 }
 
 /* Custom Webkit scrollbars */
@@ -72,11 +161,11 @@
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.15);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: rgba(148, 163, 184, 0.3);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* Animations for premium transitions */

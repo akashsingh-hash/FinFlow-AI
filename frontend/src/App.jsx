@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 import Sidebar from './components/Sidebar';
@@ -17,6 +17,7 @@ import Budgets from './pages/Budgets';
 import Users from './pages/Users';
 import AuditLogs from './pages/AuditLogs';
 import Settings from './pages/Settings';
+import Index from './pages/Index';
 
 // Protected Route Shield with Role Guards
 function ProtectedRoute({ children, allowedRoles }) {
@@ -62,33 +63,36 @@ function DashboardLayout() {
 }
 
 export default function App() {
+  useEffect(() => {
+    // Force dark mode globally
+    document.documentElement.classList.add('dark');
+    localStorage.setItem('theme', 'dark');
+  }, []);
+
   return (
     <Routes>
       {/* Public Pages */}
+      <Route path="/" element={<Index />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
 
-      {/* Protected Dashboard Routes */}
+      {/* Protected Dashboard Routes nested under a path-less Layout Route */}
       <Route
-        path="/"
         element={
           <ProtectedRoute>
             <DashboardLayout />
           </ProtectedRoute>
         }
       >
-        {/* Index Redirection */}
-        <Route index element={<Navigate to="/dashboard" replace />} />
-        
         {/* All authenticated users */}
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="expenses" element={<Expenses />} />
-        <Route path="users" element={<Users />} />
-        <Route path="settings" element={<Settings />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/expenses" element={<Expenses />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/settings" element={<Settings />} />
 
         {/* Manager/Finance workflow review guards */}
         <Route
-          path="approvals"
+          path="/approvals"
           element={
             <ProtectedRoute allowedRoles={['ADMIN', 'FINANCE_MANAGER', 'MANAGER']}>
               <Approvals />
@@ -98,7 +102,7 @@ export default function App() {
 
         {/* Corporate controllers: budgets, invoices, vendors, reimbursements */}
         <Route
-          path="reimbursements"
+          path="/reimbursements"
           element={
             <ProtectedRoute allowedRoles={['ADMIN', 'FINANCE_MANAGER', 'AUDITOR']}>
               <Reimbursements />
@@ -106,7 +110,7 @@ export default function App() {
           }
         />
         <Route
-          path="invoices"
+          path="/invoices"
           element={
             <ProtectedRoute allowedRoles={['ADMIN', 'FINANCE_MANAGER', 'MANAGER', 'AUDITOR']}>
               <Invoices />
@@ -114,7 +118,7 @@ export default function App() {
           }
         />
         <Route
-          path="vendors"
+          path="/vendors"
           element={
             <ProtectedRoute allowedRoles={['ADMIN', 'FINANCE_MANAGER', 'MANAGER', 'AUDITOR']}>
               <Vendors />
@@ -122,7 +126,7 @@ export default function App() {
           }
         />
         <Route
-          path="budgets"
+          path="/budgets"
           element={
             <ProtectedRoute allowedRoles={['ADMIN', 'FINANCE_MANAGER', 'AUDITOR']}>
               <Budgets />
@@ -132,7 +136,7 @@ export default function App() {
 
         {/* Compliance and audit trail guard */}
         <Route
-          path="audit-logs"
+          path="/audit-logs"
           element={
             <ProtectedRoute allowedRoles={['ADMIN', 'AUDITOR']}>
               <AuditLogs />

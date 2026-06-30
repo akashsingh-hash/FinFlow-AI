@@ -1,0 +1,34 @@
+# IDE & System Files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# Frontend Exclusions
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/.pnpm-debug.log*
+
+# Backend Exclusions
+backend/target/
+backend/*.jar
+backend/*.war
+backend/*.ear
+backend/.metadata/
+backend/.classpath
+backend/.project
+backend/.settings/
+backend/bin/
+backend/dependency-reduced-pom.xml

@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-06-18T13:35:30+0530",
-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.46.0.v20260407-0427, environment: Java 21.0.10 (Eclipse Adoptium)"
+    date = "2026-06-30T09:57:40+0530",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 24 (Oracle Corporation)"
 )
 @Component
 public class VendorMapperImpl implements VendorMapper {
@@ -23,12 +23,12 @@ public class VendorMapperImpl implements VendorMapper {
         VendorResponse.VendorResponseBuilder vendorResponse = VendorResponse.builder();
 
         vendorResponse.companyId( vendorCompanyId( vendor ) );
-        vendorResponse.address( vendor.getAddress() );
-        vendorResponse.createdAt( vendor.getCreatedAt() );
-        vendorResponse.email( vendor.getEmail() );
         vendorResponse.id( vendor.getId() );
         vendorResponse.name( vendor.getName() );
+        vendorResponse.email( vendor.getEmail() );
         vendorResponse.phone( vendor.getPhone() );
+        vendorResponse.address( vendor.getAddress() );
+        vendorResponse.createdAt( vendor.getCreatedAt() );
         vendorResponse.updatedAt( vendor.getUpdatedAt() );
 
         return vendorResponse.build();
@@ -42,10 +42,10 @@ public class VendorMapperImpl implements VendorMapper {
 
         Vendor.VendorBuilder vendor = Vendor.builder();
 
-        vendor.address( request.getAddress() );
-        vendor.email( request.getEmail() );
         vendor.name( request.getName() );
+        vendor.email( request.getEmail() );
         vendor.phone( request.getPhone() );
+        vendor.address( request.getAddress() );
 
         return vendor.build();
     }
@@ -56,10 +56,10 @@ public class VendorMapperImpl implements VendorMapper {
             return;
         }
 
-        vendor.setAddress( request.getAddress() );
-        vendor.setEmail( request.getEmail() );
         vendor.setName( request.getName() );
+        vendor.setEmail( request.getEmail() );
         vendor.setPhone( request.getPhone() );
+        vendor.setAddress( request.getAddress() );
     }
 
     private Long vendorCompanyId(Vendor vendor) {

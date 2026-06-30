@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-06-18T13:35:30+0530",
-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.46.0.v20260407-0427, environment: Java 21.0.10 (Eclipse Adoptium)"
+    date = "2026-06-30T09:57:36+0530",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 24 (Oracle Corporation)"
 )
 @Component
 public class BudgetMapperImpl implements BudgetMapper {
@@ -23,14 +23,14 @@ public class BudgetMapperImpl implements BudgetMapper {
         BudgetResponse.BudgetResponseBuilder budgetResponse = BudgetResponse.builder();
 
         budgetResponse.companyId( budgetCompanyId( budget ) );
-        budgetResponse.allocatedAmount( budget.getAllocatedAmount() );
-        budgetResponse.createdAt( budget.getCreatedAt() );
-        budgetResponse.department( budget.getDepartment() );
-        budgetResponse.endDate( budget.getEndDate() );
         budgetResponse.id( budget.getId() );
-        budgetResponse.startDate( budget.getStartDate() );
-        budgetResponse.updatedAt( budget.getUpdatedAt() );
+        budgetResponse.department( budget.getDepartment() );
+        budgetResponse.allocatedAmount( budget.getAllocatedAmount() );
         budgetResponse.utilizedAmount( budget.getUtilizedAmount() );
+        budgetResponse.startDate( budget.getStartDate() );
+        budgetResponse.endDate( budget.getEndDate() );
+        budgetResponse.createdAt( budget.getCreatedAt() );
+        budgetResponse.updatedAt( budget.getUpdatedAt() );
 
         return budgetResponse.build();
     }
@@ -43,10 +43,10 @@ public class BudgetMapperImpl implements BudgetMapper {
 
         Budget.BudgetBuilder budget = Budget.builder();
 
-        budget.allocatedAmount( request.getAllocatedAmount() );
         budget.department( request.getDepartment() );
-        budget.endDate( request.getEndDate() );
+        budget.allocatedAmount( request.getAllocatedAmount() );
         budget.startDate( request.getStartDate() );
+        budget.endDate( request.getEndDate() );
 
         return budget.build();
     }
@@ -57,10 +57,10 @@ public class BudgetMapperImpl implements BudgetMapper {
             return;
         }
 
-        budget.setAllocatedAmount( request.getAllocatedAmount() );
         budget.setDepartment( request.getDepartment() );
-        budget.setEndDate( request.getEndDate() );
+        budget.setAllocatedAmount( request.getAllocatedAmount() );
         budget.setStartDate( request.getStartDate() );
+        budget.setEndDate( request.getEndDate() );
     }
 
     private Long budgetCompanyId(Budget budget) {
