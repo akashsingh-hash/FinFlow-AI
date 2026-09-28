@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-06-30T09:57:35+0530",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 24 (Oracle Corporation)"
+    date = "2026-09-28T15:27:06+0530",
+    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.46.100.v20260826-1225, environment: Java 21.0.12.1 (Eclipse Adoptium)"
 )
 @Component
 public class CompanyMapperImpl implements CompanyMapper {
@@ -21,11 +21,11 @@ public class CompanyMapperImpl implements CompanyMapper {
 
         CompanyResponse.CompanyResponseBuilder companyResponse = CompanyResponse.builder();
 
+        companyResponse.address( company.getAddress() );
+        companyResponse.createdAt( company.getCreatedAt() );
         companyResponse.id( company.getId() );
         companyResponse.name( company.getName() );
         companyResponse.taxId( company.getTaxId() );
-        companyResponse.address( company.getAddress() );
-        companyResponse.createdAt( company.getCreatedAt() );
         companyResponse.updatedAt( company.getUpdatedAt() );
 
         return companyResponse.build();
@@ -39,9 +39,9 @@ public class CompanyMapperImpl implements CompanyMapper {
 
         Company.CompanyBuilder company = Company.builder();
 
+        company.address( request.getAddress() );
         company.name( request.getName() );
         company.taxId( request.getTaxId() );
-        company.address( request.getAddress() );
 
         return company.build();
     }
@@ -52,8 +52,8 @@ public class CompanyMapperImpl implements CompanyMapper {
             return;
         }
 
+        company.setAddress( request.getAddress() );
         company.setName( request.getName() );
         company.setTaxId( request.getTaxId() );
-        company.setAddress( request.getAddress() );
     }
 }
