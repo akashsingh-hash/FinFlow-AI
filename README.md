@@ -7,6 +7,8 @@
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16.0-blue.svg?style=flat-square&logo=postgresql)](https://www.postgresql.org)
 [![H2 Database](https://img.shields.io/badge/H2-In--Memory%20Test-orange.svg?style=flat-square)](https://www.h2database.com)
 [![JUnit 5](https://img.shields.io/badge/JUnit-5-red.svg?style=flat-square&logo=junit5)](https://junit.org/junit5/)
+[![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED.svg?style=flat-square&logo=docker)](https://www.docker.com)
+[![AWS EC2](https://img.shields.io/badge/AWS-EC2%20Deployed-FF9900.svg?style=flat-square&logo=amazonaws)](https://aws.amazon.com/ec2/)
 [![License](https://img.shields.io/badge/License-MIT-orange.svg?style=flat-square)](LICENSE)
 [![Build Status](https://img.shields.io/badge/Tests-53%20Passed-brightgreen.svg?style=flat-square)](#)
 
@@ -297,6 +299,37 @@ The application automatically seeds a demo organization (**Acme Corporation**) o
 | **Finance Manager** | `finance@acme.com` | Approves high-value claims (>25,000 INR) & records reimbursement payouts. |
 | **Auditor** | `auditor@acme.com` | Read-only access to immutable change logs and financial audit trails. |
 | **Employee** | `employee@acme.com` | Submits expense claims with receipts and tracks reimbursement progress. |
+
+---
+
+## ☁️ Deployment — AWS EC2 (Docker)
+
+The FinFlow AI backend is Dockerized and deployed on **AWS EC2** following security best practices:
+
+### 🐳 Docker
+The backend is containerized using a multi-stage `Dockerfile` (located at the project root). The image builds the Spring Boot fat JAR via Maven and runs it on a minimal `eclipse-temurin:21-jre-alpine` base, keeping the final image lean and attack-surface small.
+
+```bash
+# Build the image
+docker build -t finflow-ai-backend .
+
+# Run with environment variables injected at runtime (no secrets baked into the image)
+docker run -d -p 8080:8080 \
+  -e SPRING_DATASOURCE_URL=jdbc:postgresql://<db-host>:5432/finflow_db \
+  -e SPRING_DATASOURCE_USERNAME=<user> \
+  -e SPRING_DATASOURCE_PASSWORD=<pass> \
+  -e JWT_SECRET=<secret> \
+  finflow-ai-backend
+```
+
+### 🛡️ AWS Security Configuration
+
+| Control | Details |
+| :--- | :--- |
+| **EC2 Security Group** | Inbound rules restricted to port `8080` (app) and port `22` (SSH) only. All other inbound traffic is denied by default. Outbound is limited to required egress only. |
+| **IAM Instance Role** | The EC2 instance is assigned a least-privilege IAM Instance Profile Role. The application retrieves any AWS credentials it needs (e.g., for S3 file storage) via the instance metadata service — no long-lived keys stored on disk. |
+| **Scoped IAM User (MFA-enforced)** | A dedicated IAM user with narrowly scoped permissions (no admin or root policies) was created for CI/deployment tasks. Console access for this user requires **MFA (Multi-Factor Authentication)**. Root account access keys are not used or stored anywhere. |
+| **No Stored Access Keys** | Credentials are never hardcoded, committed to version control, or stored in environment files on the server. Runtime secrets are passed via environment variables or fetched through the instance role. |
 
 ---
 

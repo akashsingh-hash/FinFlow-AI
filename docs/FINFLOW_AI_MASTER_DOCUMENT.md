@@ -483,23 +483,36 @@ To improve performance and handle high concurrent loads:
 
 ---
 
-### 27. Future Docker Deployment Plan
-A multi-stage Docker build is planned:
-1. **Backend Dockerfile**:
-   ```dockerfile
-   FROM maven:3.9-eclipse-temurin-21 AS build
-   WORKDIR /app
-   COPY . .
-   RUN mvn clean package -DskipTests
-   
-   FROM eclipse-temurin:21-jre-alpine
-   WORKDIR /app
-   COPY --from=build /app/target/finflow-ai-*.jar app.jar
-   EXPOSE 8080
-   ENTRYPOINT ["java", "-jar", "app.jar"]
-   ```
-2. **Frontend Dockerfile**: Using Nginx to serve static Vite build files.
-3. **Docker Compose**: Combines Backend, Frontend, and PostgreSQL container services with health checks.
+### 27. Docker & AWS EC2 Deployment
+
+The FinFlow AI backend is containerized using a multi-stage `Dockerfile` and deployed on **AWS EC2**.
+
+#### 27.1 Dockerfile (Multi-Stage Build)
+The `Dockerfile` at the project root uses a two-stage build: Maven compiles the fat JAR in a full JDK image, then only the JAR is copied into a minimal `eclipse-temurin:21-jre-alpine` runtime image, keeping the final image small and the attack surface low.
+
+```dockerfile
+FROM maven:3.9-eclipse-temurin-21 AS build
+WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
+
+FROM eclipse-temurin:21-jre-alpine
+WORKDIR /app
+COPY --from=build /app/target/finflow-ai-*.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]
+```
+
+No secrets are baked into the image. All runtime credentials (database URL, credentials, JWT secret) are injected via environment variables at container start.
+
+#### 27.2 AWS EC2 Security Configuration
+
+| Control | Details |
+| :--- | :--- |
+| **EC2 Security Group (Restricted)** | Inbound rules allow only port `8080` (application) and port `22` (SSH). All other inbound traffic is blocked by default. Outbound is scoped to required egress only. |
+| **IAM Instance Profile Role** | The EC2 instance is assigned a least-privilege IAM Instance Role. The application retrieves AWS credentials it needs (e.g., for S3 file storage) from the EC2 instance metadata service — no long-lived keys are stored on disk. |
+| **Scoped IAM User + MFA** | A dedicated IAM user (non-root) with narrowly scoped permissions was created for deployment/CI tasks. Console access for this user enforces **MFA (Multi-Factor Authentication)**. Root account access keys are not used or stored anywhere. |
+| **No Stored Access Keys** | Credentials are never hardcoded, committed to version control, or written to `.env` files on the server. The instance role handles AWS API access; runtime secrets are passed as environment variables. |
 
 ---
 
